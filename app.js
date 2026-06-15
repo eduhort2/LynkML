@@ -1,5 +1,13 @@
 const cfg = window.LYNK_CONFIG;
-const client = supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
+const configurationReady = Boolean(
+  cfg?.supabaseUrl &&
+  cfg?.supabaseAnonKey &&
+  !cfg.supabaseUrl.includes("SEU-PROJETO") &&
+  !cfg.supabaseAnonKey.includes("SUA_CHAVE")
+);
+const client = configurationReady
+  ? supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey)
+  : null;
 let currentUser = null;
 let pendingFactor = null;
 const $ = (id) => document.getElementById(id);
@@ -24,9 +32,19 @@ async function afterLogin() {
 
 $("login-form").addEventListener("submit", async e => {
   e.preventDefault();
-  const { error } = await client.auth.signInWithPassword({ email: $("email").value, password: $("password").value });
-  $("login-message").textContent = error?.message || "";
-  if (!error) afterLogin();
+  const message = $("login-message");
+  if (!configurationReady) {
+    message.textContent = "Configure a Project URL e a chave pública anon no arquivo config.js e publique novamente.";
+    return;
+  }
+  message.textContent = "Entrando...";
+  try {
+    const { error } = await client.auth.signInWithPassword({ email: $("email").value, password: $("password").value });
+    message.textContent = error?.message || "";
+    if (!error) afterLogin();
+  } catch (error) {
+    message.textContent = `Falha ao conectar com o Supabase: ${error.message}`;
+  }
 });
 
 $("mfa-form").addEventListener("submit", async e => {
@@ -78,4 +96,11 @@ $("create-user-form").addEventListener("submit", async e => {
 });
 
 $("logout").addEventListener("click", async () => { await client.auth.signOut(); show("login"); });
-client.auth.getSession().then(({ data }) => data.session ? afterLogin() : show("login"));
+if (configurationReady) {
+  client.auth.getSession()
+    .then(({ data }) => data.session ? afterLogin() : show("login"))
+    .catch(() => show("login"));
+} else {
+  $("login-message").textContent = "Portal ainda não conectado ao Supabase. Preencha o arquivo config.js.";
+  show("login");
+}
