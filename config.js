@@ -1,4 +1,4 @@
 window.LYNK_CONFIG = {
   supabaseUrl: "https://SEU-PROJETO.supabase.co",
-  supabaseAnonKey: "SUA_CHAVE_PUBLICA_ANON"
+  supabaseAnonKey: "sb_publishable_564gsHfKsgAIZKKmjz17bQ_mbNfoFlG"
 };
