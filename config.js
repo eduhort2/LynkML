@@ -1,4 +1,3 @@
 window.LYNK_CONFIG = {
   supabaseUrl: "https://SEU-PROJETO.supabase.co",
-  supabaseAnonKey: "sb_publishable_564gsHfKsgAIZKKmjz17bQ_mbNfoFlG"
-};
+  supabaseAnonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdhaXVmdWhpZ2JoZndhZXhyenN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1MDY0NDIsImV4cCI6MjA5NzA4MjQ0Mn0.e_zIWiwYCubGqI4v9cDTqD58SJkLeOpzwPChxzb5dSg
