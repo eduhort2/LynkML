@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>LYNK OS</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main id="login" class="center">
+    <form id="login-form" class="card auth-card">
+      <div class="brand">LYNK<span>.</span></div>
+      <p>Operating System</p>
+      <input id="email" type="email" placeholder="E-mail" required>
+      <input id="password" type="password" placeholder="Senha" required>
+      <button>Entrar</button>
+      <small id="login-message"></small>
+    </form>
+  </main>
+
+  <main id="mfa" class="center hidden">
+    <form id="mfa-form" class="card auth-card">
+      <h2>Verificação em duas etapas</h2>
+      <p>Informe o código do seu aplicativo autenticador.</p>
+      <input id="mfa-code" inputmode="numeric" maxlength="6" placeholder="000000" required>
+      <button>Verificar</button>
+      <small id="mfa-message"></small>
+    </form>
+  </main>
+
+  <div id="portal" class="shell hidden">
+    <aside>
+      <div class="brand">LYNK<span>.</span></div>
+      <p class="muted">Operating System</p>
+      <nav>
+        <button data-view="dashboard" class="active">Dashboard</button>
+        <button data-view="tasks">Tarefas</button>
+        <button data-view="security">Segurança</button>
+        <button data-view="admin" id="admin-nav" class="hidden">Usuários</button>
+      </nav>
+      <button id="logout" class="ghost">Sair</button>
+    </aside>
+    <section class="content">
+      <header><div><small>PLATAFORMA OPERACIONAL</small><h1 id="view-title">Dashboard</h1></div><span id="user-email"></span></header>
+
+      <section id="dashboard-view" class="view">
+        <div class="metrics">
+          <article class="card"><small>Pendentes</small><strong id="pending-count">0</strong></article>
+          <article class="card"><small>Executando</small><strong id="running-count">0</strong></article>
+          <article class="card"><small>Concluídas</small><strong id="done-count">0</strong></article>
+        </div>
+        <article class="card"><h3>Execuções recentes</h3><div id="recent-tasks"></div></article>
+      </section>
+
+      <section id="tasks-view" class="view hidden">
+        <article class="card">
+          <h3>Solicitar execução</h3>
+          <form id="task-form" class="grid">
+            <select id="task-type">
+              <option value="bot_descontao">Bot Descontão</option>
+              <option value="bot_anuncios">Bot Anúncios</option>
+              <option value="bot_imagens">Bot Imagens</option>
+            </select>
+            <textarea id="task-payload" placeholder='Observações ou JSON opcional'></textarea>
+            <button>Adicionar à fila</button>
+          </form>
+        </article>
+        <article class="card"><h3>Fila</h3><div id="task-list"></div></article>
+      </section>
+
+      <section id="security-view" class="view hidden">
+        <article class="card">
+          <h3>Aplicativo autenticador</h3>
+          <p>Vincule Google Authenticator ou Microsoft Authenticator.</p>
+          <button id="enroll-mfa">Gerar QR Code</button>
+          <div id="mfa-enroll-result"></div>
+        </article>
+      </section>
+
+      <section id="admin-view" class="view hidden">
+        <article class="card">
+          <h3>Criar usuário</h3>
+          <form id="create-user-form" class="grid">
+            <input id="new-name" placeholder="Nome">
+            <input id="new-email" type="email" placeholder="E-mail" required>
+            <input id="new-password" type="password" placeholder="Senha temporária" minlength="10" required>
+            <button>Criar acesso</button>
+          </form>
+          <small id="create-user-message"></small>
+        </article>
+      </section>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/config.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
