@@ -35,6 +35,7 @@
       <nav>
         <button data-view="dashboard" class="active">Dashboard</button>
         <button data-view="tasks">Tarefas</button>
+        <button data-view="mercadolivre">Mercado Livre</button>
         <button data-view="security">Segurança</button>
         <button data-view="admin" id="admin-nav" class="hidden">Usuários</button>
       </nav>
@@ -68,6 +69,18 @@
         <article class="card"><h3>Fila</h3><div id="task-list"></div></article>
       </section>
 
+      <section id="mercadolivre-view" class="view hidden">
+        <article class="card">
+          <h3>Conta Mercado Livre</h3>
+          <p>Conecte sua conta pela autorização oficial. O LYNK OS nunca solicita sua senha.</p>
+          <div class="grid">
+            <button id="connect-ml">Conectar conta Mercado Livre</button>
+            <button id="diagnostic-ml">Testar conexão</button>
+          </div>
+          <pre id="ml-result"></pre>
+        </article>
+      </section>
+
       <section id="security-view" class="view hidden">
         <article class="card">
           <h3>Aplicativo autenticador</h3>
@@ -93,7 +106,7 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="/config-v2.js"></script>
-  <script src="/app-v2.js"></script>
+  <script src="/config-v3.js"></script>
+  <script src="/app-v3.js"></script>
 </body>
 </html>
